@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .stopwatch-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .time {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .start {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .pause {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .reset {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .buttons button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stopwatch-container">
+        <div class="time" id="display">00:00:00</div>
+        <div class="buttons">
+            <button class="start" onclick="startStopwatch()">Start</button>
+            <button class="pause" onclick="pauseStopwatch()">Pause</button>
+            <button class="reset" onclick="resetStopwatch()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 0;
+        let interval = null;
+        let isRunning = false;
+
+        function updateDisplay() {
+            let hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+            let mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+            let secs = String(seconds % 60).padStart(2, '0');
+            document.getElementById("display").textContent = `${hrs}:${mins}:${secs}`;
+        }
+
+        function startStopwatch() {
+            if (!isRunning) {
+                isRunning = true;
+                interval = setInterval(() => {
+                    seconds++;
+                    updateDisplay();
+                }, 1000);
+            }
+        }
+
+        function pauseStopwatch() {
+            isRunning = false;
+            clearInterval(interval);
+        }
+
+        function resetStopwatch() {
+            pauseStopwatch();
+            seconds = 0;
+            updateDisplay();
+        }
+    </script>
+
+</body>
+
+</html>
