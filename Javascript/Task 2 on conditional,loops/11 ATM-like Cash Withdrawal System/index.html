@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ATM Simulator</title>
+</head>
+
+<body>
+    <script>
+
+        // Login process
+        let enteredPin = prompt("Enter your ATM PIN (or type 'forgot'):");
+
+        if (enteredPin === "forgot") {
+            forgotPin();
+        } else if (parseInt(enteredPin) === correctPin) {
+            isLoggedIn = true;
+            atmMenu(); // Show menu if PIN is correct
+        } else {
+            alert("Incorrect PIN!");
+        }
+
+        let balance = 1000; // Initial balance
+        const correctPin = 1234; // ATM PIN
+        let isLoggedIn = false;
+
+        // Simulated forgot PIN message
+        function forgotPin() {
+            alert("Please visit your nearest bank branch to recover your PIN.");
+        }
+
+        // Main ATM operations
+        function atmMenu() {
+            while (isLoggedIn) {
+                let choice = prompt(
+                    "ATM Menu:\n1. Check Balance\n2. Withdraw Money\n3. Deposit Money\n4. Logout"
+                );
+
+                switch (choice) {
+                    case "1":
+                        alert(`Your current balance is $${balance}.`);
+                        break;
+
+                    case "2":
+                        let withdraw = parseInt(prompt("Enter amount to withdraw:"));
+                        if (withdraw <= balance) {
+                            balance -= withdraw;
+                            alert(`Withdrawal successful. New balance: $${balance}`);
+                        } else {
+                            alert("Insufficient balance!");
+                        }
+                        break;
+
+                    case "3":
+                        let deposit = parseInt(prompt("Enter amount to deposit:"));
+                        if (!isNaN(deposit) && deposit > 0) {
+                            balance += deposit;
+                            alert(`Deposit successful. New balance: $${balance}`);
+                        } else {
+                            alert("Invalid amount.");
+                        }
+                        break;
+
+                    case "4":
+                        alert("Thank you for using the ATM. Logging out...");
+                        isLoggedIn = false;
+                        break;
+
+                    default:
+                        alert("Invalid choice! Please select a valid option.");
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
