@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discount System</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // E-commerce Discount System
+
+    const totalAmount = parseFloat(prompt("Enter the total amount:"));
+    let discount = 0;
+
+    if (totalAmount > 1000) {
+        discount = 0.2; // 20% discount
+    } else if (totalAmount > 500) {
+        discount = 0.1; // 10% discount
+    } else if (totalAmount > 100) {
+        discount = 0.05; // 5% discount
+    }
+
+    const finalAmount = totalAmount - (totalAmount * discount);
+    alert(`The final amount after a discount of ${discount * 100}% is: $${finalAmount.toFixed(2)}`);
+</script>
+
+</html>
