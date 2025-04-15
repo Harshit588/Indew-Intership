@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    const temperature = prompt("Enter temperature in Celsius:");
+    const celsius = parseFloat(temperature);
+    const fahrenheit = (celsius * 9 / 5) + 32;
+    let weatherCategory = "";
+    if (celsius < 0) {
+        weatherCategory = "Freezing";
+    }
+    else if (celsius >= 0 && celsius <= 15) {
+        weatherCategory = "Cold";
+    } else if (celsius > 15 && celsius <= 25) {
+        weatherCategory = "Warm";
+    } else {
+        weatherCategory = "Hot";
+    }
+    console.log("Answer of Q No. 1:", `Temperature in Fahrenheit: ${fahrenheit}, Weather Category: ${weatherCategory}`);
+
+    alert(`Temperature in Fahrenheit: ${fahrenheit}, Weather Category: ${weatherCategory}`);
+</script>
+
+</html>
