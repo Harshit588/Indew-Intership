@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    // Password Strength Checker
+    const password = prompt("Enter a password:");
+    let strength = 0;
+
+    if (password.length >= 8) {
+        strength++;
+    }
+
+    // Check for special characters
+    if (password.includes("@") || password.includes("#") || password.includes("$")) {
+        strength++;
+    }
+
+    // Check for uppercase letters
+    if (/[A-Z]/.test(password)) {
+        strength++;
+    }
+
+    // Check for lowercase letters
+    if (/[a-z]/.test(password)) {
+        strength++;
+    }
+
+    // Check for numbers
+    if (/[0-9]/.test(password)) {
+        strength++;
+    }
+
+    switch (strength) {
+        case 0:
+            alert("Score of your Password is " + strength + " out of 5\nYour password is too weak. Please try again.");
+            break;
+        case 1:
+            alert("Score of your Password is " + strength + " out of 5\nYour password is weak.");
+            break;
+        case 2:
+            alert("Score of your Password is " + strength + " out of 5\nYour password is moderate.");
+            break;
+        case 3:
+            alert("Score of your Password is " + strength + " out of 5\nYour password is strong.");
+            break;
+        case 4:
+            alert("Score of your Password is " + strength + " out of 5\nYour password is very strong.");
+            break;
+        case 5:
+            alert("Score of your Password is " + strength + " out of 5\nYour password is excellent.");
+            break;
+        default:
+            alert("Invalid password. Please try again.");
+            break;
+    }
+</script>
+
+</html>
