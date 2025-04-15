@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Eligibility System</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // Voting Eligibility System
+    const age = parseInt(prompt("Enter your age:"));
+    const citizenship = prompt("Are you a citizen of this country? (yes/no)").toLowerCase();
+
+    if (age >= 18 && citizenship === "yes") {
+        alert("You are eligible to vote.");
+    } else if (age < 18 && citizenship === "yes") {
+        alert("You are not eligible to vote yet. You will be eligible when you turn 18.");
+    } else if (age >= 18 && citizenship === "no") {
+        alert("You are not eligible to vote because you are not a citizen.");
+    } else {
+        alert("Invalid input. Please enter 'yes' or 'no' for citizenship.");
+    }
+</script>
+
+</html>
