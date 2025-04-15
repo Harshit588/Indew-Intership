@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #e74c3c;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Countdown Timer</h1>
+        <div id="countdown" class="timer">Enter time in seconds</div>
+        <input type="number" id="timeInput" placeholder="Enter time in seconds" />
+        <button onclick="startTimer()">Start Timer</button>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        function startTimer() {
+            const input = document.getElementById("timeInput");
+            let time = parseInt(input.value);
+
+            if (isNaN(time) || time <= 0) {
+                alert("Please enter a valid number greater than 0.");
+                return;
+            }
+
+            const countdownElement = document.getElementById("countdown");
+            const messageElement = document.getElementById("message");
+
+            messageElement.textContent = ""; // Clear any previous messages
+
+            const timerInterval = setInterval(() => {
+                countdownElement.textContent = `${time} seconds remaining...`;
+                time--;
+
+                if (time < 0) {
+                    clearInterval(timerInterval);
+                    countdownElement.textContent = "⏰ Time's up!";
+                    messageElement.textContent = "Time's up! 🎉";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
