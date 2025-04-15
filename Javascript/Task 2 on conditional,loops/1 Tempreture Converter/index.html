@@ -13,8 +13,10 @@
 <script>
     const temperature = prompt("Enter temperature in Celsius:");
     const celsius = parseFloat(temperature);
+    
     const fahrenheit = (celsius * 9 / 5) + 32;
     let weatherCategory = "";
+
     if (celsius < 0) {
         weatherCategory = "Freezing";
     }
