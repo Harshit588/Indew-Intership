@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fizzBuzz</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    const number = prompt("Enter a number: ");
+    let result = "";
+
+    for (let i = 1; i <= number; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            result += "FizzBuzz\n";
+        } else if (i % 3 === 0) {
+            result += "Fizz\n";
+        } else if (i % 5 === 0) {
+            result += "Buzz\n";
+        } else {
+            result += i + "\n";
+        }
+    }
+
+    alert(result); // Show all results at once
+
+</script>
+
+</html>
