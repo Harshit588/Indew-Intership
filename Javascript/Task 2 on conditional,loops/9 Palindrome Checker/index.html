@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    const number = prompt("Enter a number: ");
+    let isPalindrome = true;
+    const strNumber = number.toString();
+    const length = strNumber.length;
+
+    for (let i = 0; i < length / 2; i++) {
+        if (strNumber[i] !== strNumber[length - 1 - i]) {
+            isPalindrome = false;
+            break;
+        }
+    }
+
+    alert(isPalindrome ? "The number is a palindrome." : "The number is not a palindrome.");
+</script>
+
+</html>
