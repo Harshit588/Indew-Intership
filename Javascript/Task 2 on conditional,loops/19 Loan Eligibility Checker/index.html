@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Eligibility Checker</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // Loan Eligibility Checker
+
+    const age = parseInt(prompt("Enter your age:"));
+    const income = parseFloat(prompt("Enter your annual income:"));
+    const creditScore = parseInt(prompt("Enter your credit score:"));
+
+    if (age >= 18 && income >= 30000 && creditScore >= 700) {
+        alert("Congratulations! You are eligible for a loan.");
+    } else {
+        alert("Sorry, you are not eligible for a loan.");
+    }
+</script>
+
+</html>
