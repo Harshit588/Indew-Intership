@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    const birthDate = prompt("Enter your birth date (YYYY-MM-DD):");
+    const birth = new Date(birthDate);
+    const today = new Date();
+
+    // Calculate years
+    let years = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    let days = today.getDate() - birth.getDate();
+
+    // Adjust for negative months/days
+    if (days < 0) {
+        months--;
+        // Get number of days in the previous month
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    // Total days lived
+    const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+
+    // Final alerts
+    alert(`You are ${years} years, ${months} months, and ${days} days old.`);
+    alert(`You are approximately ${totalDays} days old.`);
+
+</script>
+
+</html>
