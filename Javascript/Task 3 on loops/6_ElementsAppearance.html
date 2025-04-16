@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elements Appearance</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    const arr = prompt("Enter numbers separated by commas").split(",").map(Number);
+    let status = "";
+    let exitElement = [];
+
+    for (let i = 0; i < arr.length; i++) {
+
+        let count = 0;// Initialize count for each element
+
+        // Check if the element has already been counted
+        if (exitElement.includes(arr[i])) {
+            continue;
+        }
+        else {
+            for (let j = 0; j < arr.length; j++) {
+                if (arr[i] === arr[j]) {
+                    count++;
+                }
+            }
+
+            exitElement.push(arr[i]); // Add the element to the exitElement array to avoid recounting
+            status += `${arr[i]} appears ${count} time\n`;
+        }
+    }
+
+    alert(status);
+
+</script>
+
+
+</html>
