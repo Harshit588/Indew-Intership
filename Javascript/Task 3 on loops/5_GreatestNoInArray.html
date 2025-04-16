@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greatest Number</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    const arr = prompt("Enter numbers separated by commas").split(",").map(Number);
+    let greatest = arr[0];
+
+    for (let i of arr) {
+        if (i > greatest) {
+            greatest = i;
+        }
+    }
+    alert("The greatest number is: " + greatest);
+
+
+
+</script>
+
+</html>
