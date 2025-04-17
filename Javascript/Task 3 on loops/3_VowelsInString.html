@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vowel Count</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vowel Count</title>
 </head>
 
 <body>
@@ -12,18 +12,15 @@
 </body>
 
 <script>
-    const str = prompt("Enter a string to count the number of vowels: ");
-    const vowels = "aeiouAEIOU"; // String containing all vowels (both lowercase and uppercase)
-    let vowelsInString = ""; // To store the vowels found in the string
-
-    for (let i = 0; i < str.length; i++) {
-        if (vowels.includes(str[i])) {
-            vowelsInString += str[i] + ", ";
-        }
+  const str = prompt("Enter a string to count the number of vowels: ");
+  let count = 0;
+  for (let i of str) {
+    if (i === 'a' || i === 'e' || i === 'i' || i === 'o' || i === 'u' ||
+      i === 'A' || i === 'E' || i === 'I' || i === 'O' || i === 'U') {
+      count++;
     }
+  }
 
-    alert(`The vowels in the string "${str}" are: ${vowelsInString}`);
+  alert(`The vowels in the string "${str}" are: ${count}`);
 </script>
-
-
 </html>
