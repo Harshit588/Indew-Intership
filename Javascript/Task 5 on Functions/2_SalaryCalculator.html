@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Salary Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #000000;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #000000;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #000000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Salary Calculator</h2>
+
+    <label>Your Salary (₹):</label>
+    <input type="number" id="salary" placeholder="Enter Basic Salary" required />
+
+    <br>
+    <label>House Rent (% of Basic):</label>
+    <input type="number" id="hra" placeholder="e.g. 20" required />
+
+    <br>
+    <label>Other Benefits by Company (% of Basic):</label>
+    <input type="number" id="other" placeholder="e.g. 20" required />
+
+
+    <br>
+    <label>Deductions (₹):</label>
+    <input type="number" id="deduction" placeholder="PF, Tax, etc." required />
+
+    <br>
+    <button onclick="calculateSalary()">Calculate</button>
+
+    <h3 id="result">Your salary details will appear here</h3>
+  </div>
+
+  <script>
+    const calculateSalary = () => {
+
+      const salary = parseFloat(document.getElementById("salary").value);
+      const hraPer = parseFloat(document.getElementById("hra").value);
+      const otherPer = parseFloat(document.getElementById("other").value);
+      const deduction = parseFloat(document.getElementById("deduction").value);
+
+      const hra = salary * (hraPer / 100);
+      const other = salary * (otherPer / 100);
+
+      const gross = (salary + hra + other);
+      const net = gross - deduction;
+
+      document.getElementById("result").innerHTML = `
+    <strong>Gross Salary:</strong> ₹${gross.toFixed(2)}<br>
+    <strong>Net Salary:</strong> ₹${net.toFixed(2)}
+  `;
+    };
+  </script>
+</body>
+
+</html>
