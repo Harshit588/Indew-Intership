@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EMI Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    div {
+      background-color: #28a745;
+    }
+
+    div:hover {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>EMI Calculator</h2>
+    <label>Loan Amount (₹):</label>
+    <input type="number" id="amount" placeholder="Enter amount" />
+
+    <label>Annual Interest Rate (%):</label> <br>
+    <input type="number" id="rate" placeholder="Enter interest rate" />
+
+    <label>Loan Tenure (in months):</label>
+    <input type="number" id="time" placeholder="Enter months" />
+
+    <button onclick="EmiCalculator()">Calculate EMI</button>
+
+    <h3 id="result">Your EMI will appear here</h3>
+  </div>
+
+
+  <script>
+    const EmiCalculator = () => {
+
+      let amount = document.getElementById('amount').value;
+      let rate = document.getElementById('rate').value;
+      let time = document.getElementById('time').value;
+
+      let monthlyRate = rate / 12 / 100;
+
+      let emi = (amount * monthlyRate *
+          Math.pow(1 + monthlyRate, time)) /
+        (Math.pow(1 + monthlyRate, time) - 1);
+
+      let result = emi.toFixed(2);
+
+      document.getElementById("result").innerHTML = `Your EMI is ₹${emi.toFixed(2)}`;
+    }
+  </script>
+</body>
+
+</html>
