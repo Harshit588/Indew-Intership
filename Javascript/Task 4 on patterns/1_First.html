@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pattern Printing</title>
+
+</head>
+
+<body>
+
+  <h1>Welcome to the Patterns Page</h1>
+  <p>This page will display various patterns using JavaScript.</p>
+  <hr>
+
+  <h2>Q1. First =>
+    <pre>
+        1 
+        1 2
+        1 2 3 
+        1 2 3 4 
+        1 2 3 4 5
+    </pre>
+  </h2>
+  <script>
+    document.write("<h2>Pattern Output</h2>");
+    let patter1 = "";
+    for (let i = 1; i <= 5; i++) {
+      for (let j = 1; j <= i; j++) {
+        patter1 = patter1 + "  " + j
+      }
+      patter1 += "\n"
+    }
+    document.write("<h2><pre>", patter1, "</pre>")
+  </script>
+
+  <hr>
+
+  <h2>Q2. Second =&gt;
+    <pre>
+      1 
+      2  3
+      4  5  6 
+      7  8  9  10
+    </pre>
+  </h2>
+
+  <script>
+    document.write("<h2>Pattern Output</h2>");
+    let pattern1 = "";
+    let k = 1;
+    for (let i = 1; i <= 4; i++) {
+      for (let j = 1; j <= i; j++) {
+        pattern1 += k + " ";
+        k++;
+      }
+      pattern1 += "\n";
+    }
+    document.write("<h2><pre>" + pattern1 + "</pre>");
+  </script>
+
+  <hr>
+
+  <h2>Q3. Third =>
+    <pre>
+    arr = [1,2,3,4,5,6,7,8,9]
+    1 4 7
+    2 5 8
+    3 6 9
+  </pre>
+  </h2>
+
+  <script>
+    document.write("<h2>Pattern Output</h2>");
+    let patter2 = "";
+
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    for (let i = 1; i <= 3; i++) {
+      patter2 += arr[i - 1] + " " + arr[i + 2] + " " + arr[i + 5] + "\n";
+    }
+    document.write("<h2><pre>" + patter2 + "</pre>");
+  </script>
+
+
+
+</body>
+
+
+
+
+</html>
