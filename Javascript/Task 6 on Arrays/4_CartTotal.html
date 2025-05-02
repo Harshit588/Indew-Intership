@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Total</title>
+  </head>
+  <body>
+    <div>
+      <input
+        type="number"
+        id="cartItemName"
+        min="0"
+        required
+        placeholder="Enter Item Name"
+      />
+      Enter Item Name
+
+      <br />
+      <br />
+
+      <input
+        type="number"
+        id="cartItemPrice"
+        min="0"
+        required
+        placeholder="Enter Item Price"
+      />
+      Enter Item Price
+    </div>
+
+    <br /><br />
+
+    <button id="addItem" onclick="addItem()">Add Item</button>
+    <button id="totalPrice" onclick="TotalPrice()">Total Price</button>
+
+    <h1 id="TotalAmount"></h1>
+    <h1 id="TotalItem"></h1>
+
+    <script>
+      const addItem = () => {
+        console.log("Add item");
+      };
+      const TotalPrice = () => {
+        
+        console.log("total");
+      };
+    </script>
+  </body>
+</html>
