@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    id="body"
+    class="min-h-screen flex items-center justify-center p-4 bg-white text-black"
+  >
+    <nav class="fixed top-0 left-0 w-full bg-gray-300 shadow-md z-50 p-4">
+      <div class="flex justify-center space-x-6">
+        <button
+          onclick="changeTheme('light')"
+          class="hover:text-indigo-600 hover:scale-125 transition duration-500 hover:cursor-pointer"
+        >
+          Light Mode
+        </button>
+        <button
+          onclick="changeTheme('dark')"
+          class="hover:text-indigo-600 hover:scale-125 transition duration-500 hover:cursor-pointer"
+        >
+          Dark Mode
+        </button>
+      </div>
+    </nav>
+
+    <div class="w-full max-w-md">
+      <div class="mb-4 text-center">
+        <p
+          class="text-3xl font-bold text-center text-indigo-600 mb-6 italic tracking-wider drop-shadow-md transition duration-300 hover:text-indigo-800 hover:scale-105"
+        >
+          Search User Here
+        </p>
+
+        <input
+          type="text"
+          id="searchedUser"
+          placeholder="Enter name"
+          class="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border-black"
+        />
+      </div>
+      <div class="text-center mb-6">
+        <button
+          onclick="showData()"
+          class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-1000"
+        >
+          Submit
+        </button>
+      </div>
+      <div id="data" class="flex justify-center"></div>
+    </div>
+
+    <script>
+      const showData = () => {
+        const div = document.getElementById("data");
+        div.innerHTML = "";
+
+        const searchedUser = document.getElementById("searchedUser");
+
+        const people = [
+          {
+            name: "Harshit",
+            age: 21,
+            collage: "JIT",
+            occupation: "Backend Developer",
+            img: "./Images/Harshit.jpg",
+          },
+          {
+            name: "Aditya",
+            age: 22,
+            collage: "MIT",
+            occupation: "Java Developer",
+            img: "./Images/Aditya.png",
+          },
+          {
+            name: "Kanita",
+            age: 21,
+            collage: "JIT",
+            occupation: "MERN Stack Developer",
+            img: "./Images/Kanita.png",
+          },
+          {
+            name: "Utkarsh",
+            age: 22,
+            collage: "MIT",
+            occupation: "Developer",
+            img: "./Images/Uthkarsh.png",
+          },
+          {
+            name: "Priyanshu",
+            age: 23,
+            collage: "JIT",
+            occupation: "MERN stack Developer",
+            img: "./Images/Priyanshu.png",
+          },
+        ];
+
+        const userInput = searchedUser.value.trim().toLowerCase();
+
+        const filterUser = people.find(
+          (person) => person.name.toLowerCase() === userInput
+        );
+
+        if (!filterUser) {
+          div.innerHTML = `<p class="text-red-500 font-semibold">No User Found: ${searchedUser.value}</p>`;
+        } else {
+          div.innerHTML = `
+            <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl shadow-xl p-6 w-80 text-center">
+
+              <img src="${filterUser.img}" alt="${filterUser.name}" class="w-24 h-24 mx-auto rounded-full border-4 border-white mb-4 transition-transform duration-300 hover:scale-150" />
+
+              <h2 class="text-xl font-bold mb-2">${filterUser.name}</h2>
+
+              <p class="mb-1"><span class="font-semibold">College:</span> ${filterUser.collage}</p>
+
+              <p class="mb-1"><span class="font-semibold">Age:</span> ${filterUser.age}</p>
+
+              <p><span class="font-semibold">Role:</span> ${filterUser.occupation}</p>
+
+            </div>
+          `;
+        }
+        searchedUser.value = "";
+      };
+
+      const changeTheme = (mode) => {
+        const body = document.getElementById("body");
+        if (mode === "dark") {
+          document.getElementById("body").style.background = "black";
+          document.getElementById("body").style.color = "white";
+        } else {
+          document.getElementById("body").style.background = "white";
+          document.getElementById("body").style.color = "black";
+        }
+      };
+    </script>
+  </body>
+</html>
