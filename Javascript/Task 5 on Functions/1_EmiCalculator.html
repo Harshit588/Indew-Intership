@@ -3,99 +3,53 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EMI Calculator</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .container {
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 300px;
-    }
-
-    input,
-    button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
-    button {
-      background-color: #28a745;
-      color: rgb(0, 0, 0);
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #218838;
-    }
-
-    div {
-      background-color: #28a745;
-    }
-
-    div:hover {
-      background-color: black;
-      color: white;
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
 </head>
 
-<body>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
 
-  <div class="container">
-    <h2>EMI Calculator</h2>
-    <label>Loan Amount (₹):</label>
-    <input type="number" id="amount" placeholder="Enter amount" />
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
 
-    <label>Annual Interest Rate (%):</label> <br>
-    <input type="number" id="rate" placeholder="Enter interest rate" />
+    <h2 class="text-2xl font-bold text-green-500 text-center mb-6">EMI Calculator</h2>
 
-    <label>Loan Tenure (in months):</label>
-    <input type="number" id="time" placeholder="Enter months" />
+    <label for="amount" class="block text-gray-700 text-sm font-medium mb-2">Loan Amount (₹):</label>
+    <input type="number" id="amount" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Enter amount" />
 
-    <button onclick="EmiCalculator()">Calculate EMI</button>
+    <label for="rate" class="block text-gray-700 text-sm font-medium mb-2">Annual Interest Rate (%):</label>
+    <input type="number" id="rate" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Enter interest rate" />
 
-    <h3 id="result">Your EMI will appear here</h3>
+    <label for="time" class="block text-gray-700 text-sm font-medium mb-2">Loan Tenure (in months):</label>
+    <input type="number" id="time" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Enter months" />
+
+    <button onclick="EmiCalculator()" class="w-full p-3 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 mb-4">
+      Calculate EMI
+    </button>
+
+    <h3 id="result" class="text-center text-lg text-gray-700 mt-4">Your EMI will appear here</h3>
   </div>
 
-
   <script>
-    const EmiCalculator = () => {
+    function EmiCalculator() {
+      const principal = parseFloat(document.getElementById('amount').value);
+      const rate = parseFloat(document.getElementById('rate').value) / 100 / 12; // Convert annual interest rate to monthly
+      const time = parseInt(document.getElementById('time').value);
 
-      let amount = document.getElementById('amount').value;
-      let rate = document.getElementById('rate').value;
-      let time = document.getElementById('time').value;
+      // Input validation
+      if (isNaN(principal) || isNaN(rate) || isNaN(time) || principal <= 0 || rate <= 0 || time <= 0) {
+        document.getElementById('result').innerText = "Please enter valid positive values for all fields.";
+        return;
+      }
 
-      let monthlyRate = rate / 12 / 100;
+      // EMI Formula: EMI = [P x r x (1 + r)^n] / [(1 + r)^n - 1]
+      const emi = (principal * rate * Math.pow(1 + rate, time)) / (Math.pow(1 + rate, time) - 1);
 
-      let emi = (amount * monthlyRate *
-          Math.pow(1 + monthlyRate, time)) /
-        (Math.pow(1 + monthlyRate, time) - 1);
-
-      let result = emi.toFixed(2);
-
-      document.getElementById("result").innerHTML = `Your EMI is ₹${emi.toFixed(2)}`;
+      // Display result
+      document.getElementById('result').innerText = `Your EMI is ₹${emi.toFixed(2)}`;
     }
   </script>
+
 </body>
 
 </html>
