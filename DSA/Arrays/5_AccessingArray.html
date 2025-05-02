@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access Element by Index</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="arrayInput"
+      placeholder="Enter array (like:10,20,30)"
+    />
+    <br />
+    <br />
+    <input
+      type="number"
+      id="elementInput"
+      placeholder="Enter Element (like:10)"
+    />
+    <br />
+    <br />
+    <button onclick="getElement()">Submit</button>
+    <h1 id="result"></h1>
+  </body>
+  <script>
+    const getElement = () => {
+      const arrayInput = document.getElementById("arrayInput").value;
+      const element = Number(document.getElementById("elementInput").value);
+      const result = document.getElementById("result");
+
+      const arr = arrayInput.split(",").map(Number);
+
+      let count = 0;
+
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === element) {
+          result.innerHTML += `${element} is Present at ${i} index <br>`;
+          count++;
+        }
+      }
+      if (count === 0) {
+        alert(`${element} not Found in Array`);
+      }
+      document.getElementById("arrayInput").value = "";
+      document.getElementById("elementInput").value = "";
+    };
+  </script>
+</html>
