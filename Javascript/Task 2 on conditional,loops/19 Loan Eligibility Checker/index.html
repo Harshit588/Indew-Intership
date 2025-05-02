@@ -2,26 +2,57 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Eligibility Checker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Eligibility Checker</title>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- TailwindCSS -->
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-indigo-200 to-blue-300">
+
+  <div class="flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Loan Eligibility Checker</h1>
+
+      <div class="space-y-4">
+        <input type="number" id="ageInput" placeholder="Enter your age" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700 text-lg" />
+
+        <input type="number" id="incomeInput" placeholder="Enter your annual income" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700 text-lg" />
+
+        <input type="number" id="creditScoreInput" placeholder="Enter your credit score" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700 text-lg" />
+
+        <button type="button" onclick="checkEligibility()" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-indigo-500 transition duration-300">
+          Check Eligibility
+        </button>
+
+        <div id="result" class="mt-6 text-lg font-semibold text-center text-gray-700"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function checkEligibility() {
+      const age = parseInt(document.getElementById('ageInput').value);
+      const income = parseFloat(document.getElementById('incomeInput').value);
+      const creditScore = parseInt(document.getElementById('creditScoreInput').value);
+
+      let message = "";
+
+      if (age >= 18 && income >= 30000 && creditScore >= 700) {
+        message = "Congratulations! You are eligible for a loan.";
+      } else {
+        message = "Sorry, you are not eligible for a loan.";
+      }
+
+      document.getElementById('result').innerText = message;
+      document.getElementById('result').className = "mt-6 text-lg font-semibold text-center text-gray-800";
+    }
+  </script>
 
 </body>
-<script>
-    // Loan Eligibility Checker
-
-    const age = parseInt(prompt("Enter your age:"));
-    const income = parseFloat(prompt("Enter your annual income:"));
-    const creditScore = parseInt(prompt("Enter your credit score:"));
-
-    if (age >= 18 && income >= 30000 && creditScore >= 700) {
-        alert("Congratulations! You are eligible for a loan.");
-    } else {
-        alert("Sorry, you are not eligible for a loan.");
-    }
-</script>
 
 </html>

@@ -2,44 +2,70 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- TailwindCSS -->
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-green-200 to-blue-200">
 
-</body>
-<script>
+  <div class="flex items-center justify-center min-h-screen">
 
-    const birthDate = prompt("Enter your birth date (YYYY-MM-DD):");
-    const birth = new Date(birthDate);
-    const today = new Date();
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
 
-    // Calculate years
-    let years = today.getFullYear() - birth.getFullYear();
-    let months = today.getMonth() - birth.getMonth();
-    let days = today.getDate() - birth.getDate();
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Age Calculator</h1>
 
-    // Adjust for negative months/days
-    if (days < 0) {
+      <div class="space-y-4">
+
+        <input type="date" id="birthDateInput" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700 text-lg" />
+
+        <button type="button" onclick="calculateAge()" class="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 transition duration-300">
+          Calculate Age
+        </button>
+
+        <div id="result" class="mt-6 text-lg font-semibold text-center text-gray-700"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function calculateAge() {
+      const birthDate = document.getElementById('birthDateInput').value;
+      const birth = new Date(birthDate);
+      const today = new Date();
+
+      // Calculate years, months, and days
+      let years = today.getFullYear() - birth.getFullYear();
+      let months = today.getMonth() - birth.getMonth();
+      let days = today.getDate() - birth.getDate();
+
+      // Adjust for negative months/days
+      if (days < 0) {
         months--;
         // Get number of days in the previous month
         const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
         days += prevMonth.getDate();
-    }
-    if (months < 0) {
+      }
+      if (months < 0) {
         years--;
         months += 12;
+      }
+
+      // Total days lived
+      const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+
+      // Display results
+      document.getElementById('result').innerText =
+        `You are ${years} years, ${months} months, and ${days} days old.\n` +
+        `You are approximately ${totalDays} days old.`;
+      document.getElementById('result').className = 'mt-6 text-lg font-semibold text-center text-gray-800';
     }
+  </script>
 
-    // Total days lived
-    const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
-
-    // Final alerts
-    alert(`You are ${years} years, ${months} months, and ${days} days old.`);
-    alert(`You are approximately ${totalDays} days old.`);
-
-</script>
+</body>
 
 </html>

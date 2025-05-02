@@ -1,31 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Discount System</title>
-</head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TailwindCSS -->
+  </head>
 
-<body>
+  <body class="bg-gradient-to-r from-green-400 to-orange-500">
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md bg-gradient-to-r from-purple-600 to-red-400">
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
+          E-commerce Discount System
+        </h1>
 
-</body>
-<script>
-    // E-commerce Discount System
+        <div class="space-y-4">
+          <input
+            type="number"
+            id="totalAmount"
+            placeholder="Enter the total amount"
+            min="0"
+            required
+            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700 text-lg"
+          />
 
-    const totalAmount = parseFloat(prompt("Enter the total amount:"));
-    let discount = 0;
+          <button
+            type="button"
+            onclick="calculateDiscount()"
+            class="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-green-500 transition duration-300"
+          >
+            Calculate Discount
+          </button>
 
-    if (totalAmount > 1000) {
-        discount = 0.2; // 20% discount
-    } else if (totalAmount > 500) {
-        discount = 0.1; // 10% discount
-    } else if (totalAmount > 100) {
-        discount = 0.05; // 5% discount
-    }
+          <div
+            id="result"
+            class="mt-6 text-lg font-semibold text-center text-gray-700"
+          ></div>
+        </div>
+      </div>
+    </div>
 
-    const finalAmount = totalAmount - (totalAmount * discount);
-    alert(`The final amount after a discount of ${discount * 100}% is: $${finalAmount.toFixed(2)}`);
-</script>
+    <script>
+      function calculateDiscount() {
+        const totalAmount = parseFloat(
+          document.getElementById("totalAmount").value
+        );
+        let discount = 0;
 
+        if (isNaN(totalAmount) || totalAmount <= 0) {
+          alert("Please enter a valid total amount.");
+          return;
+        }
+
+        if (totalAmount > 1000) {
+          discount = 0.2; // 20% discount
+        } else if (totalAmount > 500) {
+          discount = 0.1; // 10% discount
+        } else if (totalAmount > 100) {
+          discount = 0.05; // 5% discount
+        }
+
+        const finalAmount = totalAmount - totalAmount * discount;
+        document.getElementById(
+          "result"
+        ).innerText = `The final amount after a discount of ${
+          discount * 100
+        }% is: $${finalAmount.toFixed(2)}`;
+        document.getElementById("result").className =
+          " mt-6 text-lg font-semibold text-center text-gray-800";
+      }
+    </script>
+  </body>
 </html>

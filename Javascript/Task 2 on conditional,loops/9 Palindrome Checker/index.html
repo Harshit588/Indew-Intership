@@ -2,29 +2,57 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palindrome Checker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palindrome Checker</title>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- TailwindCSS -->
 </head>
 
 <body>
 
-</body>
-<script>
+  <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-pink-100 via-red-100 to-yellow-100 p-6">
 
-    const number = prompt("Enter a number: ");
-    let isPalindrome = true;
-    const strNumber = number.toString();
-    const length = strNumber.length;
+    <div class="bg-white p-8 rounded-2xl shadow-2xl flex flex-col items-center w-full max-w-md">
 
-    for (let i = 0; i < length / 2; i++) {
+      <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">Palindrome Checker</h1>
+
+      <input type="text" id="inputNumber" placeholder="Enter a number..." class="w-full px-5 py-3 mb-6 border-2 border-gray-300 rounded-xl shadow-inner focus:outline-none focus:ring-4 focus:ring-red-400 text-gray-700 text-lg transition" />
+
+      <button type="button" onclick="checkPalindrome()" class="w-full px-6 py-3 bg-gradient-to-r from-red-500 to-yellow-500 text-white font-semibold rounded-xl shadow-lg hover:scale-105 hover:from-yellow-500 hover:to-red-400 transition-all duration-300">
+        Check Palindrome
+      </button>
+
+      <div id="result" class="mt-6 text-lg font-semibold text-gray-700 text-center"></div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function checkPalindrome() {
+      const number = document.getElementById('inputNumber').value;
+      const strNumber = number.toString();
+      const length = strNumber.length;
+      let isPalindrome = true;
+
+      for (let i = 0; i < length / 2; i++) {
         if (strNumber[i] !== strNumber[length - 1 - i]) {
-            isPalindrome = false;
-            break;
+          isPalindrome = false;
+          break;
         }
-    }
+      }
 
-    alert(isPalindrome ? "The number is a palindrome." : "The number is not a palindrome.");
-</script>
+      const resultDiv = document.getElementById('result');
+      if (isPalindrome) {
+        resultDiv.innerText = `The number "${number}" is a palindrome.`;
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-green-500';
+      } else {
+        resultDiv.innerText = `The number "${number}" is not a palindrome.`;
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-red-500';
+      }
+    }
+  </script>
+
+</body>
 
 </html>

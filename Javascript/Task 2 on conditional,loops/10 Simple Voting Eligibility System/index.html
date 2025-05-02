@@ -2,29 +2,67 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voting Eligibility System</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting Eligibility System</title>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- TailwindCSS -->
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-blue-100 to-purple-200">
+
+  <div class="flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+
+      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Voting Eligibility Checker</h1>
+
+      <div class="space-y-4">
+
+        <input type="number" id="age" placeholder="Enter your age" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700" />
+
+        <input type="text" id="citizenship" placeholder="Are you a citizen of this country? (yes/no)" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700" />
+
+        <button type="button" onclick="checkVotingEligibility()" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-gradient-to-r hover:from-purple-500 hover:to-blue-500 transition duration-300">
+          Check Eligibility
+        </button>
+
+        <div id="result" class="mt-6 text-lg font-semibold text-center text-gray-700"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function checkVotingEligibility() {
+      const age = parseInt(document.getElementById('age').value);
+      const citizenship = document.getElementById('citizenship').value.toLowerCase();
+
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(age) || (citizenship !== "yes" && citizenship !== "no")) {
+        resultDiv.innerText = "Please provide valid inputs.";
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-red-500';
+        return;
+      }
+
+      if (age >= 18 && citizenship === "yes") {
+        resultDiv.innerText = "You are eligible to vote.";
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-green-500';
+      } else if (age < 18 && citizenship === "yes") {
+        resultDiv.innerText = "You are not eligible to vote yet. You will be eligible when you turn 18.";
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-yellow-500';
+      } else if (age >= 18 && citizenship === "no") {
+        resultDiv.innerText = "You are not eligible to vote because you are not a citizen.";
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-red-500';
+      } else {
+        resultDiv.innerText = "Invalid input. Please enter 'yes' or 'no' for citizenship.";
+        resultDiv.className = 'mt-6 text-lg font-semibold text-center text-red-500';
+      }
+    }
+  </script>
 
 </body>
-
-<script>
-    // Voting Eligibility System
-    const age = parseInt(prompt("Enter your age:"));
-    const citizenship = prompt("Are you a citizen of this country? (yes/no)").toLowerCase();
-
-    if (age >= 18 && citizenship === "yes") {
-        alert("You are eligible to vote.");
-    } else if (age < 18 && citizenship === "yes") {
-        alert("You are not eligible to vote yet. You will be eligible when you turn 18.");
-    } else if (age >= 18 && citizenship === "no") {
-        alert("You are not eligible to vote because you are not a citizen.");
-    } else {
-        alert("Invalid input. Please enter 'yes' or 'no' for citizenship.");
-    }
-</script>
 
 </html>
