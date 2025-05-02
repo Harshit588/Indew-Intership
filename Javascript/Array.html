@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array</title>
+</head>
+
+<body>
+
+
+  <script>
+    // let arr = new Array(10, 20, "hello", true)
+    // arr.push('Bye')
+    // arr.pop('Bye')
+
+    // arr.unshift(100)
+    // // arr.shift()
+    // alert(arr);
+
+    // let str = "Hello"
+    // let char = Array.from(str)
+    // // alert(char.length)
+
+    // let arr2 = [10, 20, 30, 40, 50]
+    // // let temp = arr2[0];
+    // // arr2[0] = arr2[arr2.length - 1]
+    // // arr2[arr2.length - 1] = temp
+
+    // alert(arr2)
+
+    let arr = [2, 4, 6, 8, 10]
+    // arr.forEach((num) => {
+    //   for (let i = 1; i <= 10; i++) {
+    //     console.log(i*num);
+    //   }
+    // })
+
+    // let a = arr.map((num) => num * num)
+    // alert(a)
+    // alert(arr)
+
+    // let ans = arr.filter((num) => num % 2 === 0)
+    // console.log(ans);.
+
+    // let total = arr.reduce((sum, num) => num + sum, 0)
+    // console.log(total);
+
+    // let found = arr.find((num) => num === 8)
+    // if (found != undefined) {
+    //   alert("Number Found")
+    // } else {
+    //   alert("Not FOund")
+    // }
+
+    // let isAnyOneEven = arr.some(num => num % 2 === 0)
+    // if (isAnyOneEven) {
+    //   alert("Yes - Even Number is Exists")
+    // } else {
+    //   alert("No None Of the Element is Even\nAll are ODD Number")
+    // }
+
+    let isAnyAllEven = arr.every(num => num % 2 === 0)
+    if (isAnyAllEven) {
+      alert("Yes - All Elements are Even in Array")
+    } else {
+      alert("No None Of the Element is Even\nAll are ODD Number")
+    }
+  </script>
+</body>
+
+</html>
