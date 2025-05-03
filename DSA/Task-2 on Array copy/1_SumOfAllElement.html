@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sum of All Element</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="arrayInput"
+      placeholder="Enter array (like: 1,2,3,4,5...)"
+      required
+    />
+    <br /><br />
+    <button onclick="getElement()">Submit</button>
+    <div id="result"></div>
+  </body>
+  <script>
+    const getElement = () => {
+      const arrayInput = document.getElementById("arrayInput").value;
+      const result = document.getElementById("result");
+
+      if (!arrayInput.trim()) {
+        alert(`Please Give Input`);
+        return;
+      }
+
+      const arr = arrayInput.split(",").map(Number);
+
+      result.innerHTML = "";
+
+      let sum = 0;
+
+      for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+      }
+
+      result.innerHTML = `<h2> Results : ${sum} </h2>`;
+
+      document.getElementById("arrayInput").value = "";
+    };
+  </script>
+</html>

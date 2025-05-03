@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Even Odd Element</title>
+  </head>
+  <body>
+    <input
+      type="text"
+      id="arrayInput"
+      placeholder="Enter array (like: 10,15,22,33)"
+    />
+    <br /><br />
+    <button onclick="getElement()">Submit</button>
+    <div id="result"></div>
+  </body>
+  <script>
+    const getElement = () => {
+      const arrayInput = document.getElementById("arrayInput").value;
+      const result = document.getElementById("result");
+
+      if (!arrayInput.trim()) {
+        alert(`Please Give Input`);
+        return;
+      }
+
+      const arr = arrayInput.split(",").map(Number);
+      result.innerHTML = "";
+
+      let evenCount = "";
+      let oddcount = "";
+
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 === 0) {
+          evenCount++;
+        } else {
+          oddcount++;
+        }
+      }
+
+      result.innerHTML = `<h2> Even :: ${evenCount}<br> Odd ::  ${oddcount} </h2>`;
+
+      document.getElementById("arrayInput").value = "";
+    };
+  </script>
+</html>
