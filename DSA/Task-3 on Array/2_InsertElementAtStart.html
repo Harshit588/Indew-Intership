@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insertion</title>
+  </head>
+  <body>
+    <div>
+      <h2>
+        Enter Array
+        <input
+          type="text"
+          id="arrayInput"
+          placeholder="Enter array (like:10,20,30)"
+          required
+        />
+      </h2>
+
+      <h2>
+        Enter Element
+        <input
+          type="number"
+          id="insertedElement"
+          placeholder="Enter Element (like:1,2)"
+          required
+        />
+      </h2>
+
+      <button onclick="InsertElementAtStart()">Submit</button>
+
+      <h2 id="before"></h2>
+      <h2 id="after"></h2>
+      <h2 id="element"></h2>
+    </div>
+  </body>
+
+  <script>
+    const InsertElementAtStart = () => {
+      const arrayInput = document.getElementById("arrayInput").value;
+      const insertedElement = Number(
+        document.getElementById("insertedElement").value
+      );
+
+      const before = document.getElementById("before");
+      const after = document.getElementById("after");
+      const element = document.getElementById("element");
+
+      const arr = arrayInput.split(",").map(Number);
+
+      before.innerHTML = `Before Insertion :: ${arr}`;
+
+      arr.length = arr.length + 1;
+
+      for (let i = arr.length - 1; i > 0; i--) {
+        arr[i] = arr[i - 1];
+      }
+
+      arr[0] = insertedElement;
+
+      after.innerHTML = `After Insertion  :: ${arr}`;
+      element.innerHTML = `Inserted Element :: ${insertedElement} at index 0`;
+    };
+  </script>
+</html>

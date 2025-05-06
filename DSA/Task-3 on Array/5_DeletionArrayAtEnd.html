@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Last Element</title>
+  </head>
+  <body>
+    <div>
+      <input
+        type="text"
+        id="arrayInput"
+        placeholder="Enter array (like:10,20,30)"
+        required
+      />
+      <br /><br />
+      <button onclick="deleteLastElement()">Delete Last Element</button>
+
+      <h2 id="before"></h2>
+      <h2 id="after"></h2>
+      <h2 id="element"></h2>
+    </div>
+
+    <script>
+      const deleteLastElement = () => {
+        const arrayInput = document.getElementById("arrayInput").value;
+
+        const before = document.getElementById("before");
+        const after = document.getElementById("after");
+        const element = document.getElementById("element");
+
+        const arr = arrayInput.split(",").map(Number);
+
+        if (arr.length === 0) {
+          alert("Array is empty. Nothing to delete.");
+          return;
+        }
+
+        const deletedElement = arr[arr.length - 1];
+
+        before.innerHTML = `Before Deletion :: ${arr}`;
+
+        arr.length = arr.length - 1;
+
+        after.innerHTML = `After Deletion  :: ${arr}`;
+        element.innerHTML = `Deleted Last Element :: ${deletedElement}`;
+      };
+    </script>
+  </body>
+</html>
