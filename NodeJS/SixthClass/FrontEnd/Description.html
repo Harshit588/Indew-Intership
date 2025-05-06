@@ -1,0 +1,48 @@
+<!-- details.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Subject Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <h2>Subject Details</h2>
+      <div id="description" class="container mt-4"></div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const subject = urlParams.get("subject");
+
+      console.log("Subject:", subject);
+
+      fetch("http://localhost:3000/readDataAboutSubject", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sub: subject }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "Done") {
+
+            const contentDiv = document.getElementById("description");
+            data.contain.forEach((line) => {
+              contentDiv.innerHTML += `<p>${line}</p>`;
+            });
+          } else {
+            alert("Error: " + data.resone);
+          }
+        })
+        .catch((err) => {
+          console.error("Fetch Error:", err);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO-LIST</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container mt-5">
+      <div class="card shadow-lg rounded">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>TODO List</h3>
+        </div>
+        <div class="card-body">
+          <div class="mb-3 row">
+            <label for="subject" class="col-sm-2 col-form-label">Subject</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="subject"
+                placeholder="Enter subject"
+              />
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="desc" class="col-sm-2 col-form-label"
+              >Description</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="desc"
+                placeholder="Enter description"
+              />
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-success" onclick="insertData()">
+              Insert
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="result"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-left: 40px;
+        margin-top: 20px;
+      "
+    ></div>
+
+    <script>
+      async function insertData() {
+        const subject = document.getElementById("subject").value;
+        const desc = document.getElementById("desc").value;
+
+        try {
+          const response = await fetch("http://localhost:3000/insert", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ subject, desc }),
+          });
+
+          const data = await response.json();
+          if (data.status === "Done") {
+            alert("Subject inserted successfully!");
+            readData();
+          }
+        } catch (err) {
+          alert("Error inserting data:", err);
+        }
+      }
+
+      const readData = async () => {
+        const result = document.getElementById("result");
+
+        try {
+          const api = await fetch("http://localhost:3000/read");
+          const data = await api.json();
+
+          result.innerHTML = "";
+          data.contain.forEach((subject) => {
+            result.innerHTML += `
+                      <div class="col-12 col-md-6 col-lg-4">
+                      <div class="card">
+                          <div class="card-body">
+                          <h5 class="card-title">${subject}</h5>
+                          <p class="card-text">
+                              For more details go
+                                <a href="./Description.html?subject=${subject}" class="btn btn-primary">More</a>
+
+                          </p>
+                          </div>
+                      </div>
+                      </div>`;
+          });
+        } catch (error) {
+          console.error("Error reading data:", error);
+          result.innerHTML = `<p class="text-danger">Failed to load subjects.</p>`;
+        }
+      };
+
+      window.onload = readData;
+    </script>
+  </body>
+</html>
