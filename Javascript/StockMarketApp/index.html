@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Price Checker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-4 text-center">Stock Price Checker</h2>
+
+      <div class="mb-4 flex gap-2">
+        <input
+          type="text"
+          id="stockInput"
+          placeholder="Enter Stock Symbol (e.g., AAPL)"
+          class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onclick="fetchStockPrice()"
+          class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-100"
+        >
+          Check
+        </button>
+      </div>
+
+      <div
+        id="stockResult"
+        class="text-center text-xl text-gray-700 font-medium mt-4 transition duration-100"
+      >
+        Enter a stock symbol to get live price.
+      </div>
+    </div>
+
+    <script>
+      const stockApiKey = "d0i3eu1r01qji78rfhegd0i3eu1r01qji78rfhf0";
+      let currentSymbol = "";
+
+      function fetchStockPrice() {
+        const input = document
+          .getElementById("stockInput")
+          .value.trim()
+          .toUpperCase();
+        const resultDiv = document.getElementById("stockResult");
+
+        if (!input) {
+          resultDiv.innerHTML = "Please enter a valid stock symbol.";
+          return;
+        }
+
+        currentSymbol = input;
+        resultDiv.innerHTML = "Fetching price for " + currentSymbol + "...";
+
+        fetch(
+          `https://finnhub.io/api/v1/quote?symbol=${currentSymbol}&token=${stockApiKey}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.c || data.c === 0) {
+              resultDiv.innerHTML = `Could not fetch data for <strong>${currentSymbol}</strong>`;
+              return;
+            }
+            resultDiv.innerHTML = `<strong>${currentSymbol}</strong> Price: $${data.c.toFixed(
+              2
+            )}`;
+          })
+          .catch((err) => {
+            resultDiv.innerHTML = "Error fetching stock data.";
+            console.error(err);
+          });
+      }
+
+      setInterval(() => {
+        if (currentSymbol) fetchStockPrice();
+      }, 5000);
+    </script>
+  </body>
+</html>
+
+<!-- 
+Company Name	          Ticker Symbol
+Apple Inc.	                AAPL
+Microsoft Corporation	    MSFT
+Alphabet Inc. (Google)	    GOOGL
+Amazon.com, Inc.	        AMZN
+Tesla, Inc.	                TSLA
+Meta Platforms Inc.	        META
+NVIDIA Corporation	        NVDA
+Netflix, Inc.	            NFLX
+JPMorgan Chase & Co.	    JPM
+The Coca-Cola Company	    KO -->

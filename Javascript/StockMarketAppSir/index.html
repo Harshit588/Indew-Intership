@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Tracker</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #f0f0f0;
+        padding: 20px;
+      }
+
+      .crypto-box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 400px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .price {
+        font-size: 1.5rem;
+        margin: 10px 0;
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="crypto-box">
+      <h2>Crypto Currency Taker</h2>
+      <div id="bitcoin" class="price">Bitcoin: Loading...</div>
+      <div id="ethereum" class="price">Ethereum: Loading...</div>
+      <div id="dogecoin" class="price">Dogecoin: Loading...</div>
+      <div id="error" class="error"></div>
+    </div>
+
+    <script>
+      function fetchCryptoPrices() {
+        fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,dogecoin&vs_currencies=usd"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+
+            document.getElementById(
+              "bitcoin"
+            ).innerHTML = `Bitcoin: $${data.bitcoin.usd}`;
+            document.getElementById(
+              "ethereum"
+            ).innerHTML = `Ethereum: $${data.ethereum.usd}`;
+            document.getElementById(
+              "dogecoin"
+            ).innerHTML = `Dogecoin: $${data.dogecoin.usd}`;
+            document.getElementById("error").innerHTML = "";
+          })
+          .catch((error) => {
+            console.error("API Error:", error);
+            document.getElementById("error").innerHTML =
+              "Failed to fetch cryptocurrency prices.";
+          });
+      }
+
+      fetchCryptoPrices();
+      setInterval(fetchCryptoPrices, 5000);
+    </script>
+  </body>
+</html>
