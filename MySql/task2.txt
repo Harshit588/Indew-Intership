@@ -1,0 +1,126 @@
+Task 2 -> 
+	Task Name: Table Design with Proper Data Types
+	Task Objective: Design a table using appropriate data types and populate it with sample data
+	Task Instructions:
+		1. Create a table Customers with fields:
+			CustomerID (INT)
+			FullName (VARCHAR)
+			Email (VARCHAR)
+			SignupDate (DATE)
+		2. Insert at least 3 customer records
+		3. Write a query to retrieve all records with formatted date
+		4. Alter the table to add a PhoneNumber field (VARCHAR)
+	Expected Output: A well-structured table with valid data type usage and successfully retrieved records with readable formatting
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+step 1 => display all Databases 
+	Query => Show Databases;
+	
+	o/p =>	+--------------------+
+		| Database           |
+		+--------------------+
+		| indew_intern       |
+		| information_schema |
+		| mysql              |
+		| performance_schema |
+		| sys                |
+		+--------------------+
+
+step 2 => use one Databases
+	Query => use indew_intern;
+	
+	o/p => Database changed
+
+step 3 => create A Customers table
+	Query =>  create table Customers(
+    			CustomerID INT PRIMARY KEY,
+     			FullName VARCHAR(100),
+    			Email Varchar(50),
+    			SignUpDate Date
+    		  );
+
+	o/p => OK, 0 rows affected (0.09 sec)
+
+step 4 => Describe Table
+ 	Query => describe Customers;
+
+	o/p =>	+------------+--------------+------+-----+---------+-------+
+		| Field      | Type         | Null | Key | Default | Extra |
+		+------------+--------------+------+-----+---------+-------+
+		| CustomerID | int          | NO   | PRI | NULL    |       |
+		| FullName   | varchar(100) | YES  |     | NULL    |       |
+		| Email      | varchar(50)  | YES  |     | NULL    |       |
+		| SignUpDate | date         | YES  |     | NULL    |       |
+		+------------+--------------+------+-----+---------+-------+
+		4 rows in set (0.03 sec)
+
+step 5 => Insert 3 Records 
+	Query => INSERT INTO Customers (CustomerID, FullName, Email, SignUpDate VALUES
+			(1, 'Harshit Soni', 'harshitarya0611@gmail.com', '2025-05-14'),
+			(2, 'Kanita Verma', 'kanniVerma07@gmail.com', '2025-04-10'),
+			(3, 'Anirudra Rajput Sir', 'AnirudraSir@gmail.com', '2025-01-01');
+
+	o/p => 	Query OK, 3 rows affected (0.01 sec)
+		Records: 3  Duplicates: 0  Warnings: 0
+
+step 6 => Select Records =>
+	Query =>  SELECT CustomerID, FullName, mail, DATE_FORMAT(SignUpDate, '%d-%m-%Y') 
+			AS FormattedDate FROM Customers;
+
+	o/p => 	+------------+---------------------+---------------------------+---------------+
+		| CustomerID | FullName            | Email                     | FormattedDate |
+		+------------+---------------------+---------------------------+---------------+
+		|          1 | Harshit Soni        | harshitarya0611@gmail.com | 14-05-2025    |
+		|          2 | Kanita Verma        | kanniVerma07@gmail.com    | 10-04-2025    |
+		|          3 | Anirudra Rajput Sir | AnirudraSir@gmail.com     | 01-01-2025    |
+		+------------+---------------------+---------------------------+---------------+
+		3 rows in set (0.02 sec)
+
+step 7 => Add new Feild
+	Query =>  ALTER TABLE Customers ADD PhoneNumber VARCHAR(15);
+	
+	o/p => 	Query OK, 0 rows affected (0.04 sec)
+		Records: 0  Duplicates: 0  Warnings: 0
+
+step 8 => Describe Again Table
+	Query => Describe Customers;
+
+	o/p=>	+-------------+--------------+------+-----+---------+-------+
+		| Field       | Type         | Null | Key | Default | Extra |
+		+-------------+--------------+------+-----+---------+-------+
+		| CustomerID  | int          | NO   | PRI | NULL    |       |
+		| FullName    | varchar(100) | YES  |     | NULL    |       |
+		| Email       | varchar(50)  | YES  |     | NULL    |       |
+		| SignUpDate  | date         | YES  |     | NULL    |       |
+		| PhoneNumber | varchar(15)  | YES  |     | NULL    |       |
+		+-------------+--------------+------+-----+---------+-------+
+		5 rows in set (0.00 sec)
+
+step 9 => Insert Only PhoneNumber 
+	Query =>  update customers set PhoneNumber='9340886343' where CustomerID=1;
+		  update customers set PhoneNumber='7489704225' where CustomerID=2;
+		  update customers set PhoneNumber='8966830131' where CustomerID=3;
+
+	o/p => 	Query OK, 3 row affected (0.02 sec)
+		Rows matched: 3  Changed: 3  Warnings: 0
+
+step 10 => Select Records 
+	Query => Select * from Customers;
+
+	o/p => 	+------------+---------------------+---------------------------+------------+-------------+
+		| CustomerID | FullName            | Email                     | SignUpDate | PhoneNumber |
+		+------------+---------------------+---------------------------+------------+-------------+
+		|          1 | Harshit Soni        | harshitarya0611@gmail.com | 2025-05-14 | 9340886343  |
+		|          2 | Kanita Verma        | kanniVerma07@gmail.com    | 2025-04-10 | 7489704225  |
+		|          3 | Anirudra Rajput Sir | AnirudraSir@gmail.com     | 2025-01-01 | 8966830131  |
+		+------------+---------------------+---------------------------+------------+-------------+
+		3 rows in set (0.00 sec)
+
+	
+
+
+
+
+
+
+

@@ -1,0 +1,78 @@
+Task1 ->
+	Task Name: Basic SQL Query Practice
+	Task Objective: Create and query a simple table using SQL statements.
+	Task Instructions: 
+		1. Create a table named Employees with fields like ID, Name, Department, and Salary.
+		2. Insert at least 3 employee records.
+		3. Write a query to display all records.
+		4. Update one record's salary and delete another.
+	Expected Output: A working SQL script that creates a table, inserts records, performs an update and delete, and displays the data.	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+step 1 => Create Databases
+	Query => create Database Indew_Intern;
+
+	o/p =>  OK, 1 row affected (0.05 sec)
+
+step 2 => Use Database
+	Query => use Indew_Intern
+
+	o/p => Database changed
+
+step 3 => Create Table
+	Query => create table Employees(
+		id INT PRIMARY KEY,
+		name VARCHAR(100),
+		department VARCHAR(100),
+		salary float
+	);
+
+	o/p =>  OK, 1 row affected (0.05 sec)
+
+step 4 => Describe Table
+	Query => describe Employees;
+	
+	o/p=>	+------------+-------------+------+-----+---------+-------+
+		| Field      | Type        | Null | Key | Default | Extra |
+		+------------+-------------+------+-----+---------+-------+
+		| Id         | int         | NO   | PRI | NULL    |       |
+		| Name       | varchar(50) | YES  |     | NULL    |       |
+		| department | varchar(50) | YES  |     | NULL    |       |
+		| Salary     | float       | YES  |     | NULL    |       |
+		+------------+-------------+------+-----+---------+-------+
+
+step 5 => Insert Data in Table
+	Query => insert into Employees(id,name,department,salary) 
+			VALUES(1,'Harshit','MERN STACK',2.40);
+	o/p =>  OK, 1 row affected (0.05 sec)
+	
+step 6 => display all records
+	Query => select * from Employees;
+	
+	o/p =>	+----+---------+------------+--------+
+		| Id | Name    | department | Salary |
+		+----+---------+------------+--------+
+		|  1 | Harshit | MERN STACK |    2.4 |
+		|  2 | Kanita  | MERN STACK |    2.4 |
+		|  3 | Aditya  | MERN STACK | 300000 |
+		+----+---------+------------+--------+
+
+step 7 => Update one record's salary 	
+	Query =>  update Employees set salary=400000 where id =1;
+
+	o/p => 	Query OK, 1 row affected (0.02 sec)
+		Rows matched: 1  Changed: 1  Warnings: 0
+
+step 8 => delete a Record 
+	Query => delete from Employees where id=3;
+	
+	o/p => Query OK, 1 row affected (0.02 sec)
+
+Step 9 => After All Operation Table is =>
+	
+	o/p =>	+----+---------+------------+--------+
+		| Id | Name    | department | Salary |
+		+----+---------+------------+--------+
+		|  1 | Harshit | MERN STACK | 400000 |
+		|  2 | Kanita  | MERN STACK |    2.4 |
+		+----+---------+------------+--------+
