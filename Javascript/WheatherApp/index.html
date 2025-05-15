@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gradient-to-l to-gray-500 from-black min-h-screen flex items-center justify-center"
+  >
+    <div
+      class="bg-gradient-to-l from-orange-300 to-zinc-400 border-t-4 border-t-indigo-500 shadow-md shadow-black hover:shadow-lg transition duration-100 p-6 rounded-xl w-full max-w-md"
+    >
+      <h2 class="text-2xl font-bold mb-4 text-center">Weather Updates</h2>
+
+      <div class="mb-4 flex items-center gap-2">
+        <input
+          type="text"
+          id="cityInput"
+          placeholder="Enter city name"
+          class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onclick="fetchWeather()"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        >
+          Search
+        </button>
+      </div>
+
+      <div id="weather" class="text-center text-lg text-Black font-medium">
+        Please enter a city name above to get weather.
+      </div>
+    </div>
+
+    <script>
+      const weatherApiKey = "e998c280151097529678494b48654f40";
+
+      function fetchWeather() {
+        const city = document.getElementById("cityInput").value.trim();
+        const weatherEl = document.getElementById("weather");
+
+        if (!city) {
+          weatherEl.innerHTML = "Please enter a valid city.";
+          return;
+        }
+
+        weatherEl.innerHTML = "Loading weather data...";
+
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}&units=metric`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.cod === 200) {
+              weatherEl.innerHTML = `Weather in <strong>${city}</strong>: ${data.main.temp}°C, ${data.weather[0].description}`;
+            } else {
+              weatherEl.innerHTML = `Could not fetch weather for <strong>${city}</strong>.`;
+            }
+          })
+          .catch((err) => {
+            weatherEl.innerHTML = `Error fetching weather data.`;
+            console.error(err);
+          });
+      }
+
+      // Optional: Auto-refresh every 60 seconds if a city is entered
+      setInterval(() => {
+        const city = document.getElementById("cityInput").value.trim();
+        if (city) fetchWeather();
+      }, 60000); // 60 seconds
+    </script>
+  </body>
+</html>
