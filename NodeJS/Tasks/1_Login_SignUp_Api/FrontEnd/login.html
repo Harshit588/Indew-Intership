@@ -76,7 +76,11 @@
             alert("Login successful!");
             window.location.href = "./dashboard.html";
           } else {
-            alert("Login failed: " + (data.message || "Invalid credentials"));
+            if (data.message === "Invalid Password") {
+              alert("Login failed: " + (data.message || "Invalid Password"));
+            } else {
+              alert("Login failed: " + (data.message || "Invalid Email"));
+            }
           }
         } catch (err) {
           alert("Error during login: " + err.message);

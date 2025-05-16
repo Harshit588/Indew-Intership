@@ -23,14 +23,22 @@ const login = async (req, res) => {
   try {
     const { userEmail, userPassword } = req.body;
 
-    const user = await User.findOne({ userEmail, userPassword });
+    const user = await User.findOne({ userEmail });
     if (!user) {
       return res
         .status(401)
-        .json({ status: "Error", message: "Invalid credentials" });
+        .json({ status: "Error", message: "Invalid Email" });
     }
 
-    res.status(200).json({ status: "Done", message: "Login successful", user });
+    if (user.userPassword === userPassword) {
+      res
+        .status(200)
+        .json({ status: "Done", message: "Login successful", user });
+    } else {
+      return res
+        .status(401)
+        .json({ status: "Error", message: "Invalid Password" });
+    }
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ status: "Error", message: "Internal server error" });
