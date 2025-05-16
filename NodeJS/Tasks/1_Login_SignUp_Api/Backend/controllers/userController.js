@@ -1,6 +1,5 @@
 const User = require("../Models/userModel");
 
-// SIGNUP FUNCTION (no hashing)
 const signup = async (req, res) => {
   try {
     const { userName, userEmail, userPassword } = req.body;
@@ -21,7 +20,6 @@ const signup = async (req, res) => {
   }
 };
 
-// LOGIN FUNCTION (no hashing)
 const login = async (req, res) => {
   try {
     const { userEmail, userPassword } = req.body;
