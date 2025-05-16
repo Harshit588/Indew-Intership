@@ -10,7 +10,6 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: "Email already registered." });
     }
 
-    // Save user directly (plain text password)
     const user = await User.create({ userName, userEmail, userPassword });
 
     res.status(201).json({ status: "Done", message: "User registered", user });
