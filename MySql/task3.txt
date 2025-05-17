@@ -1,0 +1,114 @@
+Task Name: Practice with SELECT Statements
+Task Objective: Write simple queries to retrieve and filter data from a table
+Task Instructions: Create or use an existing table named Employees
+
+Write queries to:
+        Select all columns
+        Select only names and job titles
+        Filter employees with salary above a threshold
+        Sort employees by department name in ascending order
+        Retrieve distinct job titles
+
+    Expected Output: Correctly structured SQL queries that fetch, filter, and sort data accurately
+
+step 1 -> use existing table named Employees
+        Query => 
+                mysql> use indew_intern
+                    Database changed
+                mysql> show tables;
+                    +------------------------+
+                    | Tables_in_indew_intern |
+                    +------------------------+
+                    | customers              |
+                    | employees              |
+                    +------------------------+
+                    2 rows in set (0.02 sec)
+
+                mysql> describe employees;
+                    +------------+-------------+------+-----+---------+-------+
+                    | Field      | Type        | Null | Key | Default | Extra |
+                    +------------+-------------+------+-----+---------+-------+
+                    | Id         | int         | NO   | PRI | NULL    |       |
+                    | Name       | varchar(50) | YES  |     | NULL    |       |
+                    | department | varchar(50) | YES  |     | NULL    |       |
+                    | Salary     | float       | YES  |     | NULL    |       |
+                    +------------+-------------+------+-----+---------+-------+
+                    4 rows in set (0.01 sec)
+
+step 2 -> Select all columns 
+        Query -> 
+                mysql> select * from employees;
+                    +----+-----------------+------------+---------+
+                    | Id | Name            | department | Salary  |
+                    +----+-----------------+------------+---------+
+                    |  1 | Aman Sharma     | HR         | 45000.5 |
+                    |  2 | Neha Verma      | IT         |   72000 |
+                    |  3 | Rohit Mehta     | Finance    | 58000.8 |
+                    |  4 | Priya Singh     | Marketing  |   60000 |
+                    |  5 | Karan Joshi     | IT         | 76000.2 |
+                    |  6 | Simran Kaur     | HR         | 47000.8 |
+                    |  7 | Vikram Yadav    | Operations |   51000 |
+                    |  8 | Anjali Patel    | Finance    | 59000.9 |
+                    |  9 | Ravi Kumar      | IT         |   70000 |
+                    | 10 | Deepika Chauhan | Marketing  | 63000.4 |
+                    +----+-----------------+------------+---------+
+
+step 3 -> Select only names and job titles(department)
+        Query -> 
+                mysql> select name as Name,department as Job_Profile from employees;
+                    +-----------------+-------------+
+                    | Name            | Job_Profile |
+                    +-----------------+-------------+
+                    | Aman Sharma     | HR          |
+                    | Neha Verma      | IT          |
+                    | Rohit Mehta     | Finance     |
+                    | Priya Singh     | Marketing   |
+                    | Karan Joshi     | IT          |
+                    | Simran Kaur     | HR          |
+                    | Vikram Yadav    | Operations  |
+                    | Anjali Patel    | Finance     |
+                    | Ravi Kumar      | IT          |
+                    | Deepika Chauhan | Marketing   |
+                    +-----------------+-------------+
+
+step 4 -> Filter employees with salary above a threshold
+        Query ->  
+                mysql> SELECT * FROM employees where salary>70000;
+                    +----+-------------+------------+---------+
+                    | Id | Name        | department | Salary  |
+                    +----+-------------+------------+---------+
+                    |  2 | Neha Verma  | IT         |   72000 |
+                    |  5 | Karan Joshi | IT         | 76000.2 |
+                    +----+-------------+------------+---------+
+
+step 5 -> Sort employees by department name in ascending order
+
+        Query -> 
+            mysql> select * from employees order by department ASC;
+                +----+-----------------+------------+---------+
+                | Id | Name            | department | Salary  |
+                +----+-----------------+------------+---------+
+                |  3 | Rohit Mehta     | Finance    | 58000.8 |
+                |  8 | Anjali Patel    | Finance    | 59000.9 |
+                |  1 | Aman Sharma     | HR         | 45000.5 |
+                |  6 | Simran Kaur     | HR         | 47000.8 |
+                |  2 | Neha Verma      | IT         |   72000 |
+                |  5 | Karan Joshi     | IT         | 76000.2 |
+                |  9 | Ravi Kumar      | IT         |   70000 |
+                |  4 | Priya Singh     | Marketing  |   60000 |
+                | 10 | Deepika Chauhan | Marketing  | 63000.4 |
+                |  7 | Vikram Yadav    | Operations |   51000 |
+                +----+-----------------+------------+---------+
+    
+step 6 -> Retrieve distinct job titles
+        Query -> 
+            mysql> SELECT DISTINCT department FROM employees;
+                +------------+
+                | department |
+                +------------+
+                | HR         |
+                | IT         |
+                | Finance    |
+                | Marketing  |
+                | Operations |
+                +------------+
