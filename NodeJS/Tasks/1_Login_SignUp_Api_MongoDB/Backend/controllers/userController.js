@@ -25,7 +25,7 @@ const signup = async (req, res) => {
     }
 
     console.log(req.body);
-
+ 
     const user = await User.create({
       userName,
       uniqueUserName,
