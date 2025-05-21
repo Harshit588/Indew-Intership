@@ -1,0 +1,53 @@
+
+Task Name: Filtered Data Retrieval Using WHERE Clause
+Objective: Practice filtering data using the WHERE clause
+Table Used: employees
+
+Step 1 -> Retrieve records where a numeric condition is met (e.g., salary > 60000)
+Query ->
+    mysql> SELECT * FROM employees WHERE salary > 60000;
+
+Output:
++----+-----------------+------------+---------+
+| Id | Name            | department | Salary  |
++----+-----------------+------------+---------+
+|  2 | Neha Verma      | IT         |   72000 |
+|  5 | Karan Joshi     | IT         | 76000.2 |
+|  9 | Ravi Kumar      | IT         |   70000 |
+| 10 | Deepika Chauhan | Marketing  | 63000.4 |
++----+-----------------+------------+---------+
+
+Step 2 -> Filter data based on a specific text value (e.g., department = 'HR')
+Query ->
+    mysql> SELECT * FROM employees WHERE department = 'HR';
+
+Output:
++----+--------------+------------+---------+
+| Id | Name         | department | Salary  |
++----+--------------+------------+---------+
+|  1 | Aman Sharma  | HR         | 45000.5 |
+|  6 | Simran Kaur  | HR         | 47000.8 |
++----+--------------+------------+---------+
+
+Step 3 -> Select entries added after a certain date
+Assumption: The `employees` table contains a `date_added` column of DATE type.
+Schema Addition:
+    ALTER TABLE employees ADD COLUMN date_added DATE;
+
+Sample Data Update:
+    UPDATE employees SET date_added = '2024-05-01' WHERE Id <= 5;
+    UPDATE employees SET date_added = '2024-06-15' WHERE Id > 5;
+
+Query ->
+    mysql> SELECT * FROM employees WHERE date_added > '2024-05-31';
+
+Output:
++----+-----------------+------------+---------+------------+
+| Id | Name            | department | Salary  | date_added |
++----+-----------------+------------+---------+------------+
+|  6 | Simran Kaur     | HR         | 47000.8 | 2024-06-15 |
+|  7 | Vikram Yadav    | Operations |   51000 | 2024-06-15 |
+|  8 | Anjali Patel    | Finance    | 59000.9 | 2024-06-15 |
+|  9 | Ravi Kumar      | IT         |   70000 | 2024-06-15 |
+| 10 | Deepika Chauhan | Marketing  | 63000.4 | 2024-06-15 |
++----+-----------------+------------+---------+------------+

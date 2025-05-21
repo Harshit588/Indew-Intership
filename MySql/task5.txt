@@ -1,0 +1,82 @@
+
+Task Name: Advanced Data Filtering with Logical Operators
+Objective: Practice writing queries using logical operators
+Table Used: employees
+
+Step 1 -> Filter based on two or more conditions using AND and OR
+Query ->
+    mysql> SELECT * FROM employees WHERE department = 'IT' AND salary > 72000;
+
+Output:
++----+-------------+------------+---------+
+| Id | Name        | department | Salary  |
++----+-------------+------------+---------+
+|  5 | Karan Joshi | IT         | 76000.2 |
++----+-------------+------------+---------+
+
+Query ->
+    mysql> SELECT * FROM employees WHERE department = 'HR' OR salary < 50000;
+
+Output:
++----+-------------+------------+---------+
+| Id | Name        | department | Salary  |
++----+-------------+------------+---------+
+|  1 | Aman Sharma | HR         | 45000.5 |
+|  6 | Simran Kaur | HR         | 47000.8 |
++----+-------------+------------+---------+
+
+Step 2 -> Retrieve records using the IN operator
+Query ->
+    mysql> SELECT * FROM employees WHERE department IN ('Finance', 'Marketing');
+
+Output:
++----+-----------------+------------+---------+
+| Id | Name            | department | Salary  |
++----+-----------------+------------+---------+
+|  3 | Rohit Mehta     | Finance    | 58000.8 |
+|  4 | Priya Singh     | Marketing  |   60000 |
+|  8 | Anjali Patel    | Finance    | 59000.9 |
+| 10 | Deepika Chauhan | Marketing  | 63000.4 |
++----+-----------------+------------+---------+
+
+Step 3 -> Exclude certain values using NOT
+Query ->
+    mysql> SELECT * FROM employees WHERE department NOT IN ('IT', 'HR');
+
+Output:
++----+-----------------+------------+---------+
+| Id | Name            | department | Salary  |
++----+-----------------+------------+---------+
+|  3 | Rohit Mehta     | Finance    | 58000.8 |
+|  4 | Priya Singh     | Marketing  |   60000 |
+|  7 | Vikram Yadav    | Operations |   51000 |
+|  8 | Anjali Patel    | Finance    | 59000.9 |
+| 10 | Deepika Chauhan | Marketing  | 63000.4 |
++----+-----------------+------------+---------+
+
+Step 4 -> Find values within a range using BETWEEN
+Query ->
+    mysql> SELECT * FROM employees WHERE salary BETWEEN 50000 AND 60000;
+
+Output:
++----+-----------------+------------+---------+
+| Id | Name            | department | Salary  |
++----+-----------------+------------+---------+
+|  3 | Rohit Mehta     | Finance    | 58000.8 |
+|  4 | Priya Singh     | Marketing  |   60000 |
+|  7 | Vikram Yadav    | Operations |   51000 |
+|  8 | Anjali Patel    | Finance    | 59000.9 |
++----+-----------------+------------+---------+
+
+Step 5 -> Use parentheses to control the logic flow correctly
+Query ->
+    mysql> SELECT * FROM employees WHERE (department = 'IT' OR department = 'HR') AND salary > 70000;
+
+Output:
++----+-------------+------------+---------+
+| Id | Name        | department | Salary  |
++----+-------------+------------+---------+
+|  2 | Neha Verma  | IT         |   72000 |
+|  5 | Karan Joshi | IT         | 76000.2 |
+|  9 | Ravi Kumar  | IT         |   70000 |
++----+-------------+------------+---------+
