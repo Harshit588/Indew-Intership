@@ -12,12 +12,14 @@ const signup = async (req, res) => {
       uniqueUserName
     );
     if (existingUserName !== null) {
+      console.log(`ALREADY REGISTER WITH :: ${uniqueUserName}`);
       return res.status(400).json({ message: "User Name already registered." });
     }
 
     // Check if userEmail already exists
     const existingUser = await userSignUp.searchUserByEmail(userEmail);
     if (existingUser !== null) {
+      console.log(`ALREADY REGISTER WITH :: ${userEmail}`);
       return res.status(400).json({ message: "Email already registered." });
     }
 
@@ -26,6 +28,7 @@ const signup = async (req, res) => {
       userMobile
     );
     if (existingUserMobile !== null) {
+      console.log(`ALREADY REGISTER WITH :: ${userMobile}`);
       return res
         .status(400)
         .json({ message: "User Mobile Number already registered." });
@@ -55,6 +58,8 @@ const login = async (req, res) => {
     const { identifier, userPassword } = req.body;
 
     if (!identifier || !userPassword) {
+      console.log(`Missing login credentials`);
+
       return res
         .status(400)
         .json({ status: "Error", message: "Missing login credentials" });
@@ -76,22 +81,23 @@ const login = async (req, res) => {
     }
 
     if (!user) {
+      console.log(`USER NOT FOUND WITH :: ${identifier}`);
+
       return res
         .status(401)
         .json({ status: "Error", message: "User not found" });
     }
 
-    // bcrupt the password
-    const hashedPassword = await bcrypt.hash(userPassword, 10);
-
-    // campare(verify) the password
-    const isMatch = await bcrypt.compare(userPassword, hashedPassword);
+    // Check Password is matched or not
+    const isMatch = await bcrypt.compare(userPassword, user.userPassword);
 
     if (!isMatch) {
       return res
         .status(401)
         .json({ status: "Error", message: "Invalid password" });
     }
+
+    console.log("LOGIN SUCCESSFULL");
 
     res.status(200).json({ status: "Done", message: "Login successful", user });
   } catch (error) {
