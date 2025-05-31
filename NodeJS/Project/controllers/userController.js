@@ -5,15 +5,12 @@ const signUp = async (req, res) => {
   try {
     const { userName, userEmail, userPassword, userAge } = req.body;
 
-    // 1 Basic validation (replace with JOI/express-validator in real code)
     if (!userName || !userEmail || !userPassword) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // 2️ Hash password
     const hashedPassword = await bcrypt.hash(userPassword, 10);
 
-    // 3️ Create user in DB
     const insertId = await userModel.createUser(
       userName,
       userEmail,
@@ -21,13 +18,11 @@ const signUp = async (req, res) => {
       userAge
     );
 
-    // 4️ Success response
     return res.status(201).json({
       message: "User registered successfully",
       userId: insertId,
     });
   } catch (err) {
-    // Duplicate email?
     if (err.code === "ER_DUP_ENTRY") {
       return res.status(409).json({ error: "Email already in use" });
     }
@@ -36,4 +31,14 @@ const signUp = async (req, res) => {
   }
 };
 
-module.exports = { signUp };
+const login = async (req, res) => {
+  const { userEmail, userPassword } = req.body;
+  const user = await userModel.getUserByEmail(userEmail);
+  if (user === null) {
+    return res.status(404).json({ message: "User Not Found" });
+  }
+  const isMatch = await bcrypt.compare(userPassword, user.userPassword);
+  res.send(isMatch);
+};
+
+module.exports = { signUp, login };
