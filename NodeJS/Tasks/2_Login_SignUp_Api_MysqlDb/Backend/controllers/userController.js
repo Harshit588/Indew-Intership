@@ -1,9 +1,12 @@
 const userSignUp = require("../Models/userSignUp");
 const userLogin = require("../Models/userLogin");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const cookie = require("cookie-parser"); // this should be used in app.js, not here
 
 const signup = async (req, res) => {
   try {
+    console.log("Signup request body:", req.file.buffer);
     const { userName, uniqueUserName, userEmail, userMobile, userPassword } =
       req.body;
 
@@ -12,14 +15,14 @@ const signup = async (req, res) => {
       uniqueUserName
     );
     if (existingUserName !== null) {
-      console.log(`ALREADY REGISTER WITH :: ${uniqueUserName}`);
+      console.log(`ALREADY REGISTERED WITH :: ${uniqueUserName}`);
       return res.status(400).json({ message: "User Name already registered." });
     }
 
     // Check if userEmail already exists
     const existingUser = await userSignUp.searchUserByEmail(userEmail);
     if (existingUser !== null) {
-      console.log(`ALREADY REGISTER WITH :: ${userEmail}`);
+      console.log(`ALREADY REGISTERED WITH :: ${userEmail}`);
       return res.status(400).json({ message: "Email already registered." });
     }
 
@@ -28,24 +31,28 @@ const signup = async (req, res) => {
       userMobile
     );
     if (existingUserMobile !== null) {
-      console.log(`ALREADY REGISTER WITH :: ${userMobile}`);
+      console.log(`ALREADY REGISTERED WITH :: ${userMobile}`);
       return res
         .status(400)
         .json({ message: "User Mobile Number already registered." });
     }
 
-    // bcrupt the password
+    // bcrypt the password
     const hashedPassword = await bcrypt.hash(userPassword, 10);
 
-    // Create the user
+    // Create the user with buffer-based photo
+    console.log("File :: " + req.file);
+
     const user = await userSignUp.createUser({
       userName,
       uniqueUserName,
       userEmail,
       userMobile,
-      hashedPassword,
+      userPassword: hashedPassword,
+      userPhoto: req.file.buffer ? req.file.buffer : null, // Convert buffer to base64 string
     });
 
+    console.log("New user registered:", user.userEmail);
     res.status(201).json({ status: "Done", message: "User registered", user });
   } catch (error) {
     console.error("Signup error:", error);
@@ -55,11 +62,12 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log(req.body);
+
     const { identifier, userPassword } = req.body;
 
     if (!identifier || !userPassword) {
       console.log(`Missing login credentials`);
-
       return res
         .status(400)
         .json({ status: "Error", message: "Missing login credentials" });
@@ -69,6 +77,7 @@ const login = async (req, res) => {
 
     // Try login by email
     user = await userLogin.loginWithEmail(identifier);
+    console.log("User ::", user);
 
     // If not found, try login by uniqueUserName
     if (!user) {
@@ -82,13 +91,12 @@ const login = async (req, res) => {
 
     if (!user) {
       console.log(`USER NOT FOUND WITH :: ${identifier}`);
-
       return res
         .status(401)
         .json({ status: "Error", message: "User not found" });
     }
 
-    // Check Password is matched or not
+    // Check password
     const isMatch = await bcrypt.compare(userPassword, user.userPassword);
 
     if (!isMatch) {
@@ -97,7 +105,18 @@ const login = async (req, res) => {
         .json({ status: "Error", message: "Invalid password" });
     }
 
-    console.log("LOGIN SUCCESSFULL");
+    // Sign JWT token
+    const token = jwt.sign({ user: user.userEmail }, "EEMMAAIILL", {
+      expiresIn: "1d",
+    });
+
+    // Set cookie
+    res.cookie("Email", token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+
+    console.log("LOGIN SUCCESSFUL");
 
     res.status(200).json({ status: "Done", message: "Login successful", user });
   } catch (error) {
@@ -106,4 +125,14 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { signup, login };
+const dashboard = (req, res) => {
+  // redirect to http://localhost:5501/NodeJS/Tasks/2_Login_SignUp_Api_MysqlDb/FrontEnd/dashboard.html
+  res.send("HELLLO FROM DASHBOARD");
+};
+
+const logout = (req, res) => {
+  res.clearCookie("Email");
+  res.status(200).json({ status: "Done", message: "Logout successful" });
+};
+
+module.exports = { signup, login, dashboard, logout };

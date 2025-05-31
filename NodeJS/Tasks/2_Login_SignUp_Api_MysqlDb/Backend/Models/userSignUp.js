@@ -5,21 +5,14 @@ const createUser = async ({
   userName,
   uniqueUserName,
   userEmail,
+  userPhoto,
   userMobile,
-  hashedPassword,
+  userPassword,
 }) => {
   try {
-    console.log(
-      userName,
-      uniqueUserName,
-      userEmail,
-      userMobile,
-      hashedPassword
-    );
-
     const [result] = await pool.query(
-      "INSERT INTO signupusers (userName, uniqueUserName, userEmail, userMobile, userPassword) VALUES (?, ?, ?, ?, ?)",
-      [userName, uniqueUserName, userEmail, userMobile, hashedPassword]
+      "INSERT INTO signupusers (userName, uniqueUserName, userEmail, userMobile, userPhoto, userPassword) VALUES (?, ?, ?, ?, ?, ?)",
+      [userName, uniqueUserName, userEmail, userMobile, userPhoto, userPassword]
     );
     return result;
   } catch (error) {

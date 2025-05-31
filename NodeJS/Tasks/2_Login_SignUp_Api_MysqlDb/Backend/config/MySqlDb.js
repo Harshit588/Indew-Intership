@@ -3,12 +3,19 @@ const mysql = require("mysql2");
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "root123",
-  database: "Indew_Intern",
-  waitForConnections: true,
-  connectionLimit: 10,
+  password: "root12345",
+  database: "indew_intern",
+  port: 3333,
 });
 
-console.log("DB CONNECTED");
+// Test DB connection on server start
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error("DB connection failed:", err.message);
+  } else {
+    console.log("DB connected successfully");
+    connection.release();
+  }
+});
 
 module.exports = pool.promise();
