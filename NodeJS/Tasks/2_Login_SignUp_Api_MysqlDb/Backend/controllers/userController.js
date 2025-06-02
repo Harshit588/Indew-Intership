@@ -2,11 +2,15 @@ const userSignUp = require("../Models/userSignUp");
 const userLogin = require("../Models/userLogin");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const cookie = require("cookie-parser"); // this should be used in app.js, not here
+const cookie = require("cookie-parser");
 
 const signup = async (req, res) => {
   try {
-    console.log("Signup request body:", req.file.buffer);
+    console.log("All fields:", req.body);
+    console.log("Uploaded file:", req.file ? req.file.originalname : "No file");
+
+    console.log("File received:", req.file ? "Yes ✅" : "No ❌");
+
     const { userName, uniqueUserName, userEmail, userMobile, userPassword } =
       req.body;
 
@@ -37,11 +41,11 @@ const signup = async (req, res) => {
         .json({ message: "User Mobile Number already registered." });
     }
 
+    // Create the user with buffer-based photo
+    console.log("File :: " + req.userPhoto);
+
     // bcrypt the password
     const hashedPassword = await bcrypt.hash(userPassword, 10);
-
-    // Create the user with buffer-based photo
-    console.log("File :: " + req.file);
 
     const user = await userSignUp.createUser({
       userName,
@@ -49,7 +53,7 @@ const signup = async (req, res) => {
       userEmail,
       userMobile,
       userPassword: hashedPassword,
-      userPhoto: req.file.buffer ? req.file.buffer : null, // Convert buffer to base64 string
+      userPhoto: req.file ? req.file.buffer : null,
     });
 
     console.log("New user registered:", user.userEmail);
@@ -118,7 +122,7 @@ const login = async (req, res) => {
 
     console.log("LOGIN SUCCESSFUL");
 
-    res.status(200).json({ status: "Done", message: "Login successful", user });
+    res.status(200).json({ status: "Done", message: "Login successful" });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ status: "Error", message: "Internal server error" });
@@ -126,8 +130,9 @@ const login = async (req, res) => {
 };
 
 const dashboard = (req, res) => {
-  // redirect to http://localhost:5501/NodeJS/Tasks/2_Login_SignUp_Api_MysqlDb/FrontEnd/dashboard.html
-  res.send("HELLLO FROM DASHBOARD");
+  res.redirect(
+    "http://localhost:5501/NodeJS/Tasks/2_Login_SignUp_Api_MysqlDb/FrontEnd/dashboard.html"
+  );
 };
 
 const logout = (req, res) => {

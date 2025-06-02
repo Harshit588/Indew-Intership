@@ -8,6 +8,6 @@ const upload = require("../middlewares/uploadMiddleware");
 router.post("/signup", upload.single("userPhoto"), signup);
 router.post("/login", login);
 router.get("/dashboard", authMiddleware, dashboard);
-router.get("/logout", authMiddleware, logout);
+router.post("/logout", authMiddleware, logout);
 
 module.exports = router;
