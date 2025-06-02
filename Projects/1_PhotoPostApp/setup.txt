@@ -1,0 +1,24 @@
+1. Project Initilization -> express mysql2 bcrypt jsonwebtoken cookie-parser cors multer
+
+2. Folder Structure 
+
+3 create tables =>
+    a. CREATE TABLE users (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        userName VARCHAR(255),
+        userEmail VARCHAR(100),
+        userPassword VARCHAR(100),
+        userPhoto VARCHAR(255),
+        created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    b. CREATE TABLE posts (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT,
+        content TEXT,
+        photo VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    );
+
+4. create DB connection 

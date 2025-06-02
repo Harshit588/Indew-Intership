@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password+.unmask {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      text-indent: -9999px;
+      width: 25px;
+      height: 25px;
+      background: #aaa;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      -webkit-appearance: none;
+    }
+
+    .password+.unmask::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 17px;
+      height: 17px;
+      background: #e3e3e3;
+      z-index: 1;
+      border-radius: 50%;
+    }
+
+    .password[type="text"]+.unmask::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 13px;
+      height: 13px;
+      background: #aaa;
+      z-index: 2;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-purple-600 mb-6">
+      User Login
+    </h2>
+
+    <form method="post" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">
+          Email / Phone Number / Username
+        </label>
+        <input type="text" name="identifier" id="identifier" placeholder="Enter Email, Phone Number or Username" class="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" required />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Password</label>
+        <div class="password-wrapper mt-1">
+          <input type="password" name="userPassword" id="userPassword" placeholder="Enter Password" class="password w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 pr-10" required />
+          <button class="unmask" type="button" title="Show/Hide Password">
+            Unmask
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition duration-200" onclick="login(event)">
+        Login
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Don't have an account?
+      <a href="./signup.html" class="text-purple-600 hover:underline">Sign up here</a>
+    </p>
+  </div>
+
+  <script>
+    document.querySelector(".unmask").addEventListener("click", function() {
+      const passwordInput = this.previousElementSibling;
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    });
+
+    async function login(event) {
+      event.preventDefault();
+
+      const identifier = document.getElementById("identifier").value.trim();
+      const userPassword = document.getElementById("userPassword").value;
+
+      if (!identifier || !userPassword) {
+        alert("Please fill in all fields");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:3000/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            identifier,
+            userPassword
+          }),
+          credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.status === "Done") {
+          alert("Login successful!");
+          window.location.href = "./dashboard.html";
+        } else {
+          alert("Login failed: " + (data.message || "Invalid credentials"));
+        }
+      } catch (err) {
+        alert("Error during login: " + err.message);
+      }
+    }
+  </script>
+</body>
+
+</html>
